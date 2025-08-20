@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events</title>
+
+  <style>
+    body{
+      height: 90vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    /* div{
+      padding: 50px;
+      border: 1px solid black;
+      width: 300px;
+    } */
+
+    ul li {
+      padding: 20px 80px;
+      border: 1px solid black;
+    }
+    /* ul li:nth-child(1){
+      background-color: red;
+    } */
+    .active{
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+  <!-- <div>
+    <button>Button1</button>
+    <button>Button2</button>
+    <button>Button3</button>
+  </div> -->
+
+
+  <ul type="none">
+    <li class="item">One</li>
+    <li class="item">two</li>
+    <li class="item">three</li>
+    <li class="item">four</li>
+  </ul>
+
+  <button>Stop timer</button>
+  
+  <script>
+    // Event Propagation - which events are triggered in the DOM, starting with the capturing phase (from the root to the target), followed by the target phase, and then the bubbling phase (from the target back to the root).
+
+    // const btn3 = document.getElementsByTagName("button")[2]
+    // btn3.addEventListener("click", ()=>{
+    //   alert("Btn was clicked!")
+    // })
+
+    // const divEle = document.querySelector("div")
+    // divEle.addEventListener("click", ()=>{
+    //   alert("Div was clicked")
+    // }, true)
+
+     // Event Delegation - Where a single event listener is added to a parent element to manage events for its child elements, taking advantage of event propagation, particularly the bubbling phase, to handle dynamically added elements efficiently.
+
+    const listItems = document.querySelectorAll("ul li")
+    
+    for(let i = 0; i < listItems.length; i++){
+      listItems[i].addEventListener("click", ()=>{
+        listItems[i].classList.toggle("active")
+      })
+    }
+
+    const ulEle = document.querySelector("ul")
+    console.log(ulEle);
+    
+    ulEle.addEventListener("click", (e)=>{
+      e.target.closest("li").classList.toggle("active")
+    })
+
+    //////-------------------Timers------------------//////
+    
+    // setTimeout() 
+    // Syntax : setTimeout(()=>{}, Time in millisecond)  // 1s = 1000 millisecond
+
+    const timer = setTimeout(()=>{
+      console.log("Hello!");
+    }, 3000)
+
+    //clearTimeout
+    const stopBtn = document.querySelector("button")
+    stopBtn.addEventListener("click", ()=>{
+      clearTimeout(timer)
+    })
+
+    // setInterval()
+    // Syntax : setInterval(()=>{}, Time in millisecond)  // 1s = 1000 millisecond
+
+    let i = 0
+    const intervalTimer = setInterval((e)=>{
+      i ++
+      console.log(i);
+      
+      if( i > 5){
+        clearInterval(intervalTimer)
+      }
+    }, 1000)
+    
+
+  </script>
+</body>
+</html>
